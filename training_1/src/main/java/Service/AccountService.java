@@ -7,7 +7,7 @@ import Dto.AccountDto;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class AccountService {
+public class AccountService { 
 
     private final Dao.AccountMapper accountMapper;
     

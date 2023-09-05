@@ -16,7 +16,7 @@ import Service.AccountService;
 
 
 @Controller
-@RequestMapping("/accounts")
+@RequestMapping("/accounts") 
 public class AccountController {
 	 private final AccountService accountService;
 
