@@ -7,5 +7,5 @@ import lombok.Data;
 public class AccountDto {
 	    private Long id;
 	    private String accountNumber;
-	    private Double balance;
+	    private Double balance; 
 }
