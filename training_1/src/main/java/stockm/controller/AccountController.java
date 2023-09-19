@@ -1,4 +1,4 @@
-package Controller;
+package stockm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import Dto.AccountDto;
-import Service.AccountService;
+import stockm.dto.AccountDto;
+import stockm.service.AccountService;
 
 
-@Controller
+@RestController
 @RequestMapping("/accounts") 
 public class AccountController {
 	 private final AccountService accountService;
@@ -24,16 +24,26 @@ public class AccountController {
 	    public AccountController(AccountService accountService) {
 	        this.accountService = accountService;
 	    }
+	    
+	    @GetMapping("/updateaccountview")
+	    public String updateaccountview(Model model) {
+	    	
+	        System.out.println("df");
+	         return "/update_account"; //
+	    }
 
-	    @GetMapping("/{accountNumber}")
+	    
+	    @GetMapping("/number/{accountNumber}")
 	    public String getAccountByNumber(@PathVariable String accountNumber, Model model) {
 	        AccountDto account = accountService.findByAccountNumber(accountNumber);
 	        model.addAttribute("account", account);
-	        return "account";  // JSP 파일 이름 반환 (account.jsp)
+	        System.out.println(account);
+	        return "/account";  
 	    }
 
-	    @PutMapping("/{accountNumber}")
+	    @PutMapping("/numbers/{accountNumber}")
 	    public ResponseEntity<?> updateBalance(@PathVariable String accountNumber, @RequestBody Double amount) {
+	    	System.out.println("put에 도착");
 	        AccountDto account = accountService.findByAccountNumber(accountNumber);
 	        if (account == null) {
 	            return ResponseEntity.notFound().build();
@@ -42,5 +52,7 @@ public class AccountController {
 	        accountService.updateBalance(account);
 	        return ResponseEntity.ok().build();
 	    }
+	    
+	   
 	
 }

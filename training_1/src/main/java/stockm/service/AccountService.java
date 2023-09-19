@@ -1,19 +1,20 @@
-package Service;
+package stockm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import Dao.AccountMapper;
-import Dto.AccountDto;
 import org.springframework.transaction.annotation.Transactional;
+
+import stockm.dao.AccountMapper;
+import stockm.dto.AccountDto;
 
 @Service
 public class AccountService { 
 
-    private final Dao.AccountMapper accountMapper;
+    private final stockm.dao.AccountMapper accountMapper;
     
     @Autowired
-    public AccountService(Dao.AccountMapper accountMapper) {
-        this.accountMapper = accountMapper;
+    public AccountService(stockm.dao.AccountMapper accountMapper) {
+        this.accountMapper = accountMapper; 
     }
 
     @Transactional
