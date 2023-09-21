@@ -33,12 +33,13 @@ public class TransferController {
             @RequestParam String fromAccountNumber,
             @RequestParam String toAccountNumber,
             @RequestParam Double amount) {
-        
+    	System.out.println("executeTransfer 도착");
         try {
             accountService.transfer(fromAccountNumber, toAccountNumber, amount);
-            return "Transfer successful!";
+            System.out.println("송금 성공");
+            return "송금 성공!";
         } catch (Exception e) {
-            return "Error during transfer: " + e.getMessage();
+            return "송금 중 에러 발생: " + e.getMessage();
         }
     }
 }
