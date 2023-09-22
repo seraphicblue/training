@@ -1,5 +1,7 @@
 package stockm.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,7 @@ import stockm.dto.AccountDto;
 import stockm.service.AccountService;
 
 
-@RestController
+@Controller
 @RequestMapping("/accounts") 
 public class AccountController {
 	 private final AccountService accountService;
@@ -52,6 +54,14 @@ public class AccountController {
 	        accountService.updateBalance(account);
 	        return ResponseEntity.ok().build();
 	    }
+	    
+	    @GetMapping("/wholeaccount")
+        public String getwholeAccount(Model model) {
+        	List<AccountDto> account= accountService.wholeAccount();
+        	model.addAttribute("accountlist",account);
+        	return "/currentaccount";
+        }
+	    
 	    
 	   
 	

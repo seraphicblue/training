@@ -1,5 +1,7 @@
 package stockm.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,5 +37,9 @@ public class AccountService {
 
     public int updateBalance(AccountDto account) {
         return accountMapper.updateBalance(account);
+    }
+    
+    public List<AccountDto> wholeAccount() {
+    	return accountMapper.wholeAccount();
     }
 }
