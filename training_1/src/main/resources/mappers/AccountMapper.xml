@@ -15,4 +15,9 @@
         SELECT * FROM accounts 
     </select>
     
+    <insert id="insertmainaccount">
+    INSERT INTO mainaccounts (accountNumber) VALUES (#{accountNumber})
+    </insert>
+     
+
 </mapper>

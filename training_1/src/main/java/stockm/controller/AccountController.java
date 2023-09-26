@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import stockm.dto.AccountDto;
@@ -55,14 +56,21 @@ public class AccountController {
 	        return ResponseEntity.ok().build();
 	    }
 	    
+	    //전체 계좌 내역
 	    @GetMapping("/wholeaccount")
         public String getwholeAccount(Model model) {
         	List<AccountDto> account= accountService.wholeAccount();
-        	model.addAttribute("accountlist",account);
+        	model.addAttribute("account",account);
+        	System.out.println(account+"s");
         	return "/currentaccount";
         }
 	    
-	    
+	    @GetMapping("/mainaccount/{accountNumber}")
+	    public String insertmainaccount(@PathVariable String accountNumber) {
+	    	System.out.println("mainaccount 입장");
+	        accountService.insertmainaccount(accountNumber);
+	        return "/currentaccount";
+	    }
 	   
 	
 }

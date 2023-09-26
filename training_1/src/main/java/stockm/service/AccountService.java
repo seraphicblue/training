@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import stockm.dao.AccountMapper;
 import stockm.dto.AccountDto;
+import stockm.dto.MainaccountDto;
 
 @Service
 public class AccountService { 
@@ -41,5 +42,9 @@ public class AccountService {
     
     public List<AccountDto> wholeAccount() {
     	return accountMapper.wholeAccount();
+    }
+    
+    public int insertmainaccount(String accountNumber) {
+    	return accountMapper.insertmainaccount(accountNumber);
     }
 }
