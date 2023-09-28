@@ -65,6 +65,7 @@ public class AccountController {
         	return "/currentaccount";
         }
 	    
+	    //주계좌 등록
 	    @GetMapping("/mainaccount/{accountNumber}")
 	    public String insertmainaccount(@PathVariable String accountNumber) {
 	    	System.out.println("mainaccount 입장");
