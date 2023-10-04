@@ -1,5 +1,5 @@
 package stockm.dto;
 
-public class TokenDTO {
+public class Logindto {
 
 }
