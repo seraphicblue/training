@@ -12,7 +12,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.Table;
+@Table(name = "Users")
 @Entity
 @Getter
 @NoArgsConstructor
@@ -25,25 +26,26 @@ public class Users {
     private String name;
     private String email;
     private String password;
-    @Enumerated(EnumType.STRING)
    
 
-    private String provider;
-
     @Builder
-    public Users(Long id, String name, String email, String password, String provider) {
+    public Users(Long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.provider = provider;
     }
 
-    public Users update(String name, String provider) {
+    public Users update(String name) {
         this.name = name;
-        this.provider = provider;
         return this;
     }
+
+	public Users setPassword(String encryptedPassword) {
+	    this.password=encryptedPassword;
+	    return this;
+		
+	}
 
    
 }

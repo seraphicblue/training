@@ -70,7 +70,7 @@ public class AccountController {
 	    public String insertmainaccount(@PathVariable String accountNumber) {
 	    	System.out.println("mainaccount 입장");
 	        accountService.insertmainaccount(accountNumber);
-	        return "/currentaccount";
+	        return "currentaccount";
 	    }
 	   
 	

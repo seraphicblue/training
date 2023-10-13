@@ -2,11 +2,7 @@ package stockm.filter;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
+
 
 import org.springframework.util.StringUtils;
 
@@ -14,6 +10,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import stockm.config.JwtTokenProvider;
 
 public class JwtAuthenticationFilter extends GenericFilterBean {
@@ -33,16 +34,22 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         return null;
     }
 
-	@Override
-	public void doFilter(jakarta.servlet.ServletRequest request, jakarta.servlet.ServletResponse response,
-			jakarta.servlet.FilterChain chain) throws IOException, jakarta.servlet.ServletException {
-		String token = resolveToken((HttpServletRequest) request);
-		// 토큰 유효성 검사
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        if(!(servletRequest instanceof HttpServletRequest)) {
+            throw new ServletException("Can only process HttpServletRequest");
+        }
+
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        String token = resolveToken(request);
+
+        // 토큰 유효성 검사
         if (token!=null && jwtTokenProvider.validateToken(token)) {
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-        chain.doFilter(request, response);
-		
-	}
+
+        filterChain.doFilter(servletRequest, servletResponse); // use original parameters here
+    }
+
 }
