@@ -29,20 +29,20 @@ public class UserController {
 
     @GetMapping("/loginpage") 
     public String loginPage() {
-        pwservice.encryptAndSaveAllPasswords(); //비번 암호화
+        //pwservice.encryptAndSaveAllPasswords(); //비번 암호화
         System.out.println("비번암호");
         return "loginpage"; 
     }
  
     @PostMapping("/login")
-    public ResponseEntity<JwtToken> loginSuccess(
+    public String loginSuccess(
             @RequestParam("email") String email,
             @RequestParam("password") String password) {
     	System.out.println(email);
         JwtToken token = service.login(email, password);
          
         System.out.println("토큰생성");
-        return ResponseEntity.ok(token);
+        return "accounts/wholeaccount";
     }
 }
 
