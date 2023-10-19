@@ -21,7 +21,7 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userid;
 
     private String name;
     private String email;
@@ -29,8 +29,8 @@ public class Users {
    
 
     @Builder
-    public Users(Long id, String name, String email, String password) {
-        this.id = id;
+    public Users(Long userid, String name, String email, String password) {
+        this.userid = userid;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -44,6 +44,11 @@ public class Users {
 	public Users setPassword(String encryptedPassword) {
 	    this.password=encryptedPassword;
 	    return this;
+		
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 		
 	}
 

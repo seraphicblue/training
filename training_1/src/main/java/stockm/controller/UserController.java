@@ -39,10 +39,12 @@ public class UserController {
             @RequestParam("email") String email,
             @RequestParam("password") String password) {
     	System.out.println(email);
+    	//pwservice.encryptAndSaveAllPasswords();
         JwtToken token = service.login(email, password);
          
         System.out.println("토큰생성");
         return "accounts/wholeaccount";
     }
+   
 }
 
