@@ -44,7 +44,7 @@ public class UserService {
 
 	public JwtToken login(String email, String password) {
 		// Authentication 객체 생성
-		System.out.println("로그인 도착");
+		 log.info("로그인 도착");
 		UserDetails userDetails = null;
 		this.username = email;
 		try {
@@ -52,11 +52,11 @@ public class UserService {
 			userDetails = userDetailsService.loadUserByUsername(username);
 		} catch (UsernameNotFoundException e) {
 			// 사용자가 존재하지 않을 경우 처리
-			System.out.println("User not found: " + username);
+			 log.info("User not found: " + username);
 			throw new BadCredentialsException("Invalid email");
 		} catch (Exception e) {
 			// 다른 예외 발생 시 처리
-			System.out.println("Error loading user details: " + e.getMessage());
+			 log.info("Error loading user details: " + e.getMessage());
 			throw new RuntimeException("Error occurred while fetching user details", e);
 		}
 
@@ -72,17 +72,22 @@ public class UserService {
 		System.out.println(authenticationToken);
 
 		try {
-			Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-			System.out.println(authentication);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-		System.out.println(authenticationToken);
-		// 검증된 인증 정보로 JWT 토큰 생성
-		JwtToken token = jwtTokenProvider.generateToken(authentication);
+		    Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+		    log.info("Authentication successful: {}", authentication);
 
-		return token;
+		    // 검증된 인증 정보로 JWT 토큰 생성 및 반환
+		    return jwtTokenProvider.generateToken(authentication);
+		} catch (Exception e) {
+		    log.error("Authentication failed for user: {}", email, e);
+		    throw new BadCredentialsException("Authentication failed");
+		}
+	}
+	
+	public String extractUserFromToken(JwtToken token) {
+		//JwtToken 객체에서 실제 토큰 문자열을 반환
+		System.out.println(jwtTokenProvider.getUsernameFromToken(token.getAccessToken()));
+	    return jwtTokenProvider.getUsernameFromToken(token.getAccessToken());
+	    
 	}
 
 }

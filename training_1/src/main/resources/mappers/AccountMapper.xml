@@ -19,5 +19,7 @@
     INSERT INTO mainaccounts (accountNumber) VALUES (#{accountNumber})
     </insert>
      
-
+    <select id="findByemail" resultType="stockm.dto.AccountDto">
+        SELECT * FROM accounts WHERE email=#{email}
+    </select>
 </mapper>

@@ -14,6 +14,7 @@ import stockm.dto.MainaccountDto;
 public class AccountService { 
 
     private final stockm.dao.AccountMapper accountMapper;
+	private String email;
     
     @Autowired
     public AccountService(stockm.dao.AccountMapper accountMapper) {
@@ -47,4 +48,10 @@ public class AccountService {
     public int insertmainaccount(String accountNumber) {
     	return accountMapper.insertmainaccount(accountNumber);
     }
+
+	public List<AccountDto> getAccountForUser(String userEmailFromToken) {
+	     email = userEmailFromToken;
+		return accountMapper.findByemail(email);
+		
+	}
 }

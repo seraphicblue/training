@@ -13,4 +13,5 @@ public interface AccountMapper {
 	    int updateBalance(AccountDto account);
 	    List<AccountDto> wholeAccount();
 	    int insertmainaccount(String accountNumber);
+		List<AccountDto> findByemail(String email);
 }

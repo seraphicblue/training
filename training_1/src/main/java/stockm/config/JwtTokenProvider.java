@@ -103,5 +103,14 @@ public class JwtTokenProvider {
             return e.getClaims();
         }
     }
+    
+    public String getUsernameFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(key) 
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject(); // JWT 토큰의 subject에 사용자 정보(예: 이메일)가 저장되어있음.
+    }
 }
  
